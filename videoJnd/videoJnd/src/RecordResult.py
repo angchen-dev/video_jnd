@@ -54,7 +54,8 @@ def _update_video_db(video_result:dict, video_obj:object) -> None:
     video_obj.qp = _add_new_item(video_obj.qp, video_result["qp"])
     video_obj.ongoing = False
     
-    video_obj.qp_count = video_obj.qp_count + 1
+    # TODO: don't update qp_count when the result code is 4
+    video_obj.qp_count = video_obj.qp_count + 1 
     if video_obj.qp_count == QP_TRIAL_NUM:
         video_obj.is_finished = True
     

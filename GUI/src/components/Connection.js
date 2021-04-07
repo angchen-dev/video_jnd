@@ -4,7 +4,7 @@ export const sendMsg = (data) => {
     return new Promise((resolve,reject)=>{
         $.ajax({
             type: 'POST',
-            url: "/scheduler",
+            url: "http://127.0.0.1:8000/scheduler",
             data: JSON.stringify(data),
             contentType: 'application/json; charset=UTF-8',
             dataType: 'json', 
