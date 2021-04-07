@@ -62,8 +62,12 @@ def record_result(recv_data:dict) -> dict:
         cur_hit_obj = EtJndHit.objects.filter(huid=recv_data["hit_id"])[0]
         cur_hit_obj.count = cur_hit_obj.count + 1
         cur_hit_obj.save()
-        
-        return {"status":"successful"}
+
+        if cur_p.finish_all_hits == False:
+            resp = "Next Group (%d/5)" % (5-len(left_hits))
+        else:
+            resp = "You finished the experiment."
+        return {"status":"successful", "data":resp}
     except Exception as e:
         print("select_hits error: %s" % str(e))
         return {"status":"failed", "data":"system error"} 
