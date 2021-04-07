@@ -200,20 +200,18 @@ class EtJndResult(admin.ModelAdmin):
     
     def export_result(self, request, queryset):
         try:
-            # TODO:
-            pass
-            # csv_name = "JND_Video_Result_" + time.strftime("%Y-%m-%d_%H-%M-%S")
-            # meta = self.model._meta
-            # column_names = [field.name for field in meta.fields if field.name not in ["id"]]
-            # response = HttpResponse(content_type='text/csv')
-            # response['Content-Disposition'] = 'attachment; filename={}.csv'.format(csv_name)
-            # writer = csv.writer(response)
-            # writer.writerow(column_names)
+            csv_name = "et_jnd_result_" + time.strftime("%Y-%m-%d_%H-%M-%S")
+            meta = self.model._meta
+            column_names = [field.name for field in meta.fields if field.name not in ["id"]]
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename={}.csv'.format(csv_name)
+            writer = csv.writer(response)
+            writer.writerow(column_names)
 
-            # for obj in queryset:
-            #     writer.writerow([getattr(obj, field) for field in column_names])
+            for obj in queryset:
+                writer.writerow([getattr(obj, field) for field in column_names])
 
-            # return response
+            return response
         except Exception as e:
             print("admin page got error: " + str(e))
 
