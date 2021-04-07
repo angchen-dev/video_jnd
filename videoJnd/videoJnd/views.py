@@ -13,6 +13,9 @@ from videoJnd.src.ProcessRequest import process_request
 def home(request):
     return render(request,'index.html')
 
+def etjnd(request):
+    return render(request,'et_index.html')
+
 
 @csrf_exempt
 def scheduler(request):

@@ -77,4 +77,28 @@ class RatingHistory(models.Model):
     result_orig = models.CharField(max_length=10, editable=False, null=False, blank=False)
     update_time = models.DateTimeField(editable=False, blank=True, auto_now=True, null=True)
 
+class EtJndHit(models.Model):
+    huid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=20, default="", editable=True)
+    image_url = models.TextField(max_length=4096, default="")
+    image_gts = models.TextField(max_length=4096, default="")
+    test_gt = models.TextField(max_length=4096, default="")
+    def __str__(self):
+        return self.name
+
+class EtJndResult(models.Model):
+    hit_id = models.CharField(max_length=64, default="", editable=True)
+    assignment_id = models.CharField(max_length=64, default="django_task", editable=True)
+    worker_id = models.CharField(max_length=64, default="", editable=True)
+    result = models.TextField(default="")
+    status = models.CharField(max_length=20, default="Submitted", editable=True)
+    accept_time = models.CharField(max_length=20, default="", editable=True)
+    submit_time = models.DateTimeField(editable=False, blank=True, auto_now=True, null=True)
+
+class EtJndParticipant(models.Model):
+    wuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cur_hit = models.CharField(max_length=20, default="", editable=True)
+    left_hits = jsonfield.JSONField()
+    join_date = models.DateTimeField(editable=False, blank=True, auto_now=True, null=True)
+    finish_all_hits = models.BooleanField(default=False, editable=False)
 

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    
+    <script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="../static/css/et_style.css">
+    <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class="main" >
+      <div class="warning-cover">
+        <div class="warning-msg"></div>
+      </div>
+      
+      <div class="card-panel guide">
+        <h3>Calibration</h3>
+        <h4>To increase the accuracy of your work, please do the calibration before the experiment. <br><br>Please prepare a bank-card, or something with a similar size. Use keyboard &#x2191; and &#x2193;, or click button &#x2191; and &#x2193; to adjust the frame until the frame fits the card size.<br>
+          <br>For Mac touchpad users, please use a hard-press (called Force click) to click the buttons. </h4>
+        <div style="vertical-align: middle;">
+
+          <img alt="calibration example" src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/calibration_exp.png">
+        </div>
+        <hr>
+        <div>
+          <button type="button" class="instruction btn btn-info ctl" data-toggle="modal" href="#cali-instruction-modal">How?</button>&nbsp;
+          <button type="button" class="zoom-in-frame btn btn-warning ctl">&#x2191; Increasing</button>&nbsp;
+          <button type="button" class="zoom-out-frame btn btn-primary ctl">&#x2193; Decreasing</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" class="finish-calibration btn btn-success ctl">&radic;&nbsp;  fitted</button>
+        </div>
+        <br>
+        <div class="card-area" style="text-align:left;">
+          <h5>&#x2190;place your card on the left</h5>
+        </div>
+        <br>
+      </div>
+      
+
+      <div class="display-panel guide">
+        <div>
+          <img style="width: 400px; height: 400px;" src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/distance.png">
+        </div>
+        <br>
+        <h4 class="distance-value"></h4>
+        <p>Reference length</p>
+        <p>A4 Paper: 21cm x 29.7cm (8.3inch x 11.7inch)</p>
+        <p class="browser-width-cm"></p>
+        <div>
+          <button type="button" class="adjust-distance btn btn-info ctl">I adjusted my distance.</button>
+        </div>
+        
+        <hr>
+      </div>
+
+      <br>
+      <div class="jnd-panel">
+        <div class="row">
+          <div class="col-6">
+            <div class="image-panel float-right">
+              <div class="src-img-num-list" imgurls=""></div>
+              <div class="src-img-gt-list" imggts=""></div>
+              <div class="test-ground-truth" testgt=""></div>
+              
+              <!-- <div class="src-img-num-list" imgurls=Test_SRC0027_JPEG-Test_SRC0058_BPG-Test_SRC0004_JPEG-Test_SRC0030_JPEG-Test_SRC0019_JPEG-Study_SRC0199_JPEG-Study_SRC0500_JPEG-Study_SRC0877_BPG-Study_SRC0221_JPEG-Study_SRC0136_JPEG-Study_SRC0570_BPG-Study_SRC0654_BPG-Study_SRC0865_BPG-Study_SRC0635_BPG-Study_SRC0273_JPEG-Test_SRC0096_BPG></div> 
+              <div class="src-img-gt-list" imggts=10-17+261-111,434-566,41-450_13-22+433-49,59-6,396-495_47-54+421-360,247-9,56-549_9-16+468-454,196-250,111-505_27-34+443-123,422-497,132-284_none_none_none_none_none_none_none_none_none_none_test></div>
+              <div class="test-ground-truth" testgt=37-46+472-621,86-636,7-91></div> -->
+
+              <div class="cross-panel">
+                <h2 id="cross-temp" style="color:springgreen; display: none; position: fixed;">&#10540;</h2>
+              </div>
+              <div class="image-pool"></div>
+
+              <div class="loading-image-div">
+                <img class="loading-image" src="https://datasets.vqa.mmsp-kn.de/pixabay_images_orig/loading.svg"/>
+              </div>
+
+              <div class="slider-panel">
+                <input class="range form-control-range" type="range" name="range" min="0" max="" value="0" hasDragged="n" disabled="true"/>
+                <span class="distortion-level factor">Distortion Level: 0</span>
+              </div>
+              <!-- hidden in AMT -->
+              <div class="image-type"></div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="section-msg">
+              <h2>You are in the <span class="section-name text-primary" data-session="training">training</span> session</h2>
+              <p class="section-tips"></p>
+              <button type="button" class="guide start-section btn btn-primary ctl">Start Training</button>
+              <p></p>
+              </br>
+            </div>
+
+            <div class="training-msg">
+              <p class="training-tips"></p>
+              <button type="button" class="guide try-again-btn  btn btn-warning ctl" data-part="jnd">Try Again</button>
+              <p></p>
+              </br>
+            </div>
+
+            <div class="controller-panel">
+              <p class="instruction"><a class="showInstr" href="#">Instruction</a></p>
+              
+              <div class="progress">
+                <div class="img-progress progress-bar progress-bar-striped bg-info" role="progressbar" aria-valuemin="0"></div>
+              </div>
+              <p class="tips">Please adjust the slider until you find the critical flickering point. Then click button "I found the critical point". Spending around 30 seconds on finding the critical point is recommended.</p>
+    
+              <button type="button" class="guide see-flickering btn btn-warning ctl" disabled="true">I found the critical point !</button>
+              <button type="button" class="guide next-image btn btn-primary ctl" disabled="true">Next Image</button>
+              <button data-toggle="modal" data-target="#survey-modal" type="button" class="guide show-survey btn btn-primary ctl">Please take a short survey.</button><br><br>
+              <button type="button" id="next-group-btn" class="guide btn btn-success ctl" onclick="location.reload();">Next Group</button>
+              <a class="to-csv" download="" href="#">Download Result</a>
+    
+              <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+                <p><input type='submit' id='submitButton' class="btn btn-success btn-lg" value='Submit' style="display:none"/></p>
+                <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
+                <p><input label="os-info" name="os-info" class="os-info" style="display:none" required></input></p>
+                <p><input label="jnd-result" name="jnd-result" class="jnd-result" style="display:none" required></input></p>
+                <p><input label="survey" name="survey" class="survey" style="display:none" required></input></p>
+                <p><input label="loc-result" name="loc-result" class="loc-result" style="display:none" required></input></p>
+                <!-- <p><input label="train-track" name="train-track" class="train-track" style="display:none" required></input></p> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade instruction-modal" id="instruction-modal" tabindex="-1" role="dialog" data-backdrop="static">  
+      <div class="modal-dialog modal-lg" style="width:900px">  
+          <div class="modal-content">  
+              <div class="modal-header">  
+                  <h4 class="modal-title">Instruction</h4>  
+                  <button type="button" class="close instr-close-btn" data-dismiss="modal">&times;</button>
+              </div>  
+
+              <div class="modal-body">
+                <div id="inst-cali_hint">
+                  <p><span style="color:#BA4A00;font-size:20pt">Note: Chrome is recommended for this study. Before accepting the HIT, please make sure your monitor's size is at least 13 inches, and do the calibration until your environment is recognized by the program. Once you passed the calibration, please use the same environment for the study. Otherwise, your submission will be rejected. Thank you for your cooperation.</span></p>
+                  <hr/>
+                </div>
+                
+                <p style="text-align:justify"><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">In this study, you will be presented with a pair of images: a pristine (high quality) reference image and a compressed version of it (the same or lower quality). The images are overlaid and displayed quickly in succession. The display is alternating between the two images 8 times per second, as shown below. You may not notice a difference between the two images from the start.</span></span></span></p>
+
+                <p style="text-align:center"><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><img src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/overlaid.png" style="height:167px; width:154px" alt="overlaid.png"/></span></span></span></p>
+
+                <p style="text-align:justify"><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">You are presented with a slider control that allows you to change the quality of the degraded image. The change may not become immediately apparent as soon as you start dragging the slider. However, at some point, you will be able to notice a difference between the two images, which will manifest as a flicker. We are interested in the critical point, which is the earliest slider (left-most) position where you start perceiving the images flicker in just a few regions of the image.</span></span></span></p>
+
+                <p style="text-align:justify"><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">We are looking for very small noise/grain showing at the critical point, rather than the whole image being seen as moving/changing. The smallest flicker looks more like floaters (the things one can sometimes see when looking at a clear sky), or film grain.&nbsp;&nbsp;</span></span></span></p>
+
+
+                <p style="text-align:justify"><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">Help us to find the critical point of the slider. With the slider to the right of the critical point, you perceive a flickering in the image, while you do not perceive a flickering image when the slider is on the left side of the critical point. With the slider positioned at the critical point, please report three different locations where you perceive that the image is flickering locally.&nbsp;&nbsp;</span></span></span></p>
+
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/critical-point-example.png" style="width:100%" alt="critical-point-example.png"/></span></span></span></p>
+
+                <hr />
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><strong>2. Steps</strong></span></span></span></p>
+
+
+                
+                  <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">1) Make sure to </span></span></span><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><strong>review the examples</strong></span></span></span><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"> before starting the job. This will greatly help in completing the task successfully.</span></span></span></p>
+                  <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">2) Adjust the slider precisely and find the critical point, then click &ldquo;I found the critical point!&rdquo;. Spending around 30 seconds on finding the critical point is recommended.</span></span></span></p>
+                  <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'">3) Report three points in the image where you see local flicker.</span></span></p>
+                  <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'">4) Click &ldquo;Next Image&rdquo; and search the critical point for the next image.</span></span></p>
+                  <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">5) When you have finished all the images, click &ldquo;Submit&rdquo; to submit your HIT result.</span></span></span></p>
+
+                <hr />
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><strong>3. Keyboard shortcuts</strong></span></span></span></p>
+
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">1) &larr; (left arrow key)&nbsp; &nbsp; moves the slider to the left</span></span></span></p>
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">2) &rarr; (right arrow key)&nbsp; moves the slider to the right</span></span></span></p>
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">3) &nbsp;(space bar)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; presses buttons &ldquo;I found the critical point!&rdquo;or &ldquo;Next Image&rdquo; or &ldquo;Submit&rdquo; or &ldquo;Try Again&rdquo;</span></span></span></p>
+
+                <hr/>
+
+
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><strong>4. Examples</strong></span></span></span><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">&nbsp;</span></span></span></p>
+
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">Here is a video to show you how to conduct the study. Please enlarge the video if it is not clear. </span></span></span></p>
+
+                <p><iframe width="100%" height="480px" src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/eyetracking_jnd.mp4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+                <br>
+                <!-- Flickering -->
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><b>- Flickering</b>: In the two images below, slight changes can be seen in the images, such as a subtle variation of the image brightness. These changes can resemble a mild film grain in a static scene of a movie and are often localized to small regions of the image. The (flickering) images below demonstrate the suggested critical point, which is the level of flickering that we are trying to assess in the study.</span></span></span></p>
+
+                <p><span style="font-size:14pt; font-family:'Times New Roman'"> At this critical level of flickering, you can perceive some regions with slight flickering while in larger regions flicker is not yet visually apparent.</span></p>
+
+                <div class="instr-image-frame">
+                  <div class="instr-image-cover instr-ref-img instr-active instr-image-frame">
+                    <img alt="ref image" src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/Train_SRC00.png">
+                  </div>
+  
+                  <div class="instr-image-cover instr-dis-img">
+                    <img alt="dis image" src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/Train_SRC00_JPEG_046.jpg">
+                  </div>
+                </div>
+                </br>
+                <div class="instr-image-frame">
+                  <div class="instr-image-cover instr-ref-img instr-active instr-image-frame">
+                    <img alt="ref image" src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/Train_SRC11.png">
+                  </div>
+  
+                  <div class="instr-image-cover instr-dis-img">
+                    <img alt="dis image" src="https://media.mmsp-kn.de/image-JND/eye_tracking_jnd/instruction/Train_SRC11_JPEG_051.jpg">
+                  </div>
+                </div>
+                <br/>
+                <!-- Severe flickering -->
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><b>- Severe flickering</b>: In the two images below, flickering is obvious, and it affects the entire image. It is obvious that two images are being toggled back and forth: the pristine and its degraded version. At this level of severe flickering, you have gone too far, the critical point was already surpassed. You can check the slider positions further to the left, decreasing the distortion, until the flicker is just barely visible.</span></span></span></p>
+                <div class="instr-image-frame">
+                  <div class="instr-image-cover instr-ref-img instr-active instr-image-frame">
+                    <img alt="ref image" src="https://media.mmsp-kn.de/image-JND/example_imgs/Train_SRC00.png">
+                  </div>
+                  <div class="instr-image-cover instr-dis-img">
+                    <img alt="dis image" src="https://media.mmsp-kn.de/image-JND/example_imgs/Train_SRC00_JPEG_021.jpg">
+                  </div>
+                </div>
+                </br>
+                <div class="instr-image-frame">
+                  <div class="instr-image-cover instr-ref-img instr-active instr-image-frame">
+                    <img alt="ref image" src="https://media.mmsp-kn.de/image-JND/pilot_study_11.20/Train_SRC11.png">
+                  </div>
+                  <div class="instr-image-cover instr-dis-img">
+                    <img alt="dis image" src="https://media.mmsp-kn.de/image-JND/pilot_study_11.20/Train_SRC11_JPEG_012.jpg">
+                  </div>
+                </div>
+                </br>
+
+                <!-- No flickering -->
+                <p><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000"><b>- No flickering</b>: The next two images are static, there is no visible change in the images, however small. At this level of no flickering you have not gone far enough with the slider, the critical point has not yet been reached. Move the slider position further to the right, increasing the distortion, until the flicker is just becoming visible.</span></span></span></p>
+                <div class="instr-image-frame">
+                  <div class="instr-image-cover instr-ref-img instr-active instr-image-frame">
+                    <img alt="ref image" src="https://media.mmsp-kn.de/image-JND/example_imgs/Train_SRC00.png">
+                  </div>
+  
+                  <div class="instr-image-cover instr-dis-img">
+                    <img alt="dis image" src="https://media.mmsp-kn.de/image-JND/example_imgs/Train_SRC00.png">
+                  </div>
+                </div>
+                </br>
+
+                <div class="instr-image-frame">
+                  <div class="instr-image-cover instr-ref-img instr-active instr-image-frame">
+                    <img alt="ref image" class="instr-image" src="https://media.mmsp-kn.de/image-JND/pilot_study_11.20/Train_SRC11.png">
+                  </div>
+  
+                  <div class="instr-image-cover instr-dis-img">
+                    <img alt="dis image" class="instr-image" src="https://media.mmsp-kn.de/image-JND/pilot_study_11.20/Train_SRC11_JPEG_085.jpg">
+                  </div>
+                </div>
+                </br>
+                <hr />
+
+                <p style="text-align:justify"><span style="font-size:14pt"><span style="font-family:'Times New Roman'"><span style="color:#000000">Thank you very much for doing your best, we appreciate your help!</span></span></span></p>
+
+              </div>
+
+              <div class="modal-footer">  
+                  <button type="button" class="btn btn-primary instr-close-btn" data-dismiss="modal">Close</button>  
+              </div>  
+          </div>
+      </div> 
+    </div>
+
+    <div class="modal fade instruction-modal" id="cali-instruction-modal" tabindex="-1" role="dialog">  
+      <div class="modal-dialog modal-lg">  
+          <div class="modal-content">  
+              <div class="modal-header">  
+                  <h4 class="modal-title">Instruction</h4>  
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>  
+
+              <div class="modal-body">
+                <p><iframe frameborder="0" width="100%" height="480px" src="https://www.youtube.com/embed/__JsM0KKF2U" allowfullscreen></iframe></p>
+
+              </div>
+
+              <div class="modal-footer">  
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+              </div>  
+          </div>
+      </div> 
+    </div>
+
+    <div class="modal fade instruction-modal" id="reminder" tabindex="-1" role="dialog">  
+      <div class="modal-dialog modal-lg">  
+          <div class="modal-content">  
+              <div class="modal-header">  
+                  <h4 class="modal-title">Reminder</h4>  
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>  
+
+              <div class="modal-body">
+                <h3 id="reminder-modal-text"></h3>
+              </div>
+
+              <div class="modal-footer">  
+                  <button id="reminder-modal-btn" type="button" class="btn btn-default btn-success" data-dismiss="modal"></button>  
+              </div>  
+          </div>
+      </div> 
+    </div>
+
+    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog">  
+      <div class="modal-dialog modal-lg">  
+          <div class="modal-content">  
+              <div class="modal-header">  
+                  <h4 class="modal-title">Survey</h4>  
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>  
+
+              <div class="modal-body">
+                <p>The bonus will depend on the survey quality.</p>
+                <p> 
+                  1. Instruction: &nbsp;
+                  <input type="radio" name="inst" value="too bad"/>&nbsp;too bad&nbsp;
+                  <input type="radio" name="inst" value="bad"/>&nbsp;bad&nbsp;
+                  <input type="radio" name="inst" value="neutral"/>&nbsp;neutral&nbsp;
+                  <input type="radio" name="inst" value="good"/>&nbsp;good&nbsp;
+                  <input type="radio" name="inst" value="very good"/>&nbsp;very good&nbsp;
+                </p>
+                <p> 
+                  2. Payment: &nbsp;
+                  <input type="radio" name="pay" value="too bad"/>&nbsp;too bad&nbsp;
+                  <input type="radio" name="pay" value="bad"/>&nbsp;bad&nbsp;
+                  <input type="radio" name="pay" value="neutral"/>&nbsp;neutral&nbsp;
+                  <input type="radio" name="pay" value="good"/>&nbsp;good&nbsp;
+                  <input type="radio" name="pay" value="very good"/>&nbsp;very good&nbsp;
+                </p>
+                <p> 
+                  3. Ease of job: &nbsp;
+                  <input type="radio" name="job" value="too bad"/>&nbsp;too bad&nbsp;
+                  <input type="radio" name="job" value="bad"/>&nbsp;bad&nbsp;
+                  <input type="radio" name="job" value="neutral"/>&nbsp;neutral&nbsp;
+                  <input type="radio" name="job" value="good"/>&nbsp;good&nbsp;
+                  <input type="radio" name="job" value="very good"/>&nbsp;very good&nbsp;
+                </p>
+                <p>
+                  4. Other suggestions:
+                  <textarea type="text" style="width:100%;height:200px" name="suggestion" id="suggestion" ></textarea>
+                </p>
+              </div>
+
+              <div class="modal-footer">  
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                  <button type="button" class="save-survey btn btn-success" data-dismiss="modal">Save</button>  
+              </div>  
+          </div>
+      </div> 
+    </div>
+ <script type="text/javascript" src="../static/js/et_bundle.js"></script></body>
+
+ <script language='Javascript'>turkSetAssignmentID();</script>
+<script type='text/javascript'>$('.popover-dismiss').popover();</script>
+</html>
+

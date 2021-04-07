@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
-from .models import Instruction, ConsentForm, VideoObj, Experiment, Participant, RatingHistory, InterfaceText
+from .models import Instruction, ConsentForm, VideoObj, Experiment, Participant, RatingHistory, InterfaceText, EtJndHit, EtJndResult, EtJndParticipant
 
 admin.site.site_header = "JND Video Study"
 admin.site.site_title = "JND Video Study"
@@ -188,4 +188,38 @@ class RatingHistory(admin.ModelAdmin):
         return False
 
 
+
+@admin.register(EtJndHit)
+class EtJndHit(admin.ModelAdmin):
+    list_display = ("name", "huid", "image_url", "image_gts", "test_gt")
+
+@admin.register(EtJndResult)
+class EtJndResult(admin.ModelAdmin):
+    list_display = ("hit_id", "worker_id", "accept_time", "submit_time")
+    actions = ["export_result"]
+    
+    def export_result(self, request, queryset):
+        try:
+            # TODO:
+            pass
+            # csv_name = "JND_Video_Result_" + time.strftime("%Y-%m-%d_%H-%M-%S")
+            # meta = self.model._meta
+            # column_names = [field.name for field in meta.fields if field.name not in ["id"]]
+            # response = HttpResponse(content_type='text/csv')
+            # response['Content-Disposition'] = 'attachment; filename={}.csv'.format(csv_name)
+            # writer = csv.writer(response)
+            # writer.writerow(column_names)
+
+            # for obj in queryset:
+            #     writer.writerow([getattr(obj, field) for field in column_names])
+
+            # return response
+        except Exception as e:
+            print("admin page got error: " + str(e))
+
+    export_result.short_description = "Export Selected"
+
+@admin.register(EtJndParticipant)
+class EtJndParticipant(admin.ModelAdmin):
+    list_display = ("wuid", "join_date", "cur_hit", "left_hits", "finish_all_hits")
 

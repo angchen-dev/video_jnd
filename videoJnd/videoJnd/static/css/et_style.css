@@ -1,0 +1,144 @@
+.main {
+  margin-left: 10px;
+  margin-right: 20px;
+} 
+
+.image, .loading-image {
+  width: 100%;
+}
+
+.image-pool {
+  position:absolute;
+  z-index: -1;
+}
+
+.loading-image-div{
+  position:relative;
+  z-index: 1;
+  background-color: #FFFFFF;
+}
+
+.slider-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.image-cover {
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  background-color: #FFFFFF;
+  visibility: hidden;
+}
+
+.curr-display
+  , .instr-curr-display-1
+  , .instr-curr-display-2
+  , .instr-curr-display-3 {
+    visibility: visible;
+}
+
+.guide, .card-panel, .image-panel{
+  text-align: center;
+  position: relative;
+  margin: auto;
+}
+
+
+.finish-calibration {
+  visibility: hidden;
+}
+
+.image-panel
+  , .controller-panel
+  , .jnd-panel
+  , .display-panel
+  , .card-panel
+  , .see-flickering
+  , .submit-result
+  , .next-image
+  , .to-csv
+  , .show-survey
+  , .src-img-num-list
+  , .training-msg
+  , .section-msg
+  , #next-group-btn {
+    display: none;
+}
+
+.card-area {
+  position: relative;
+  margin-left: 25%;
+  border-radius: 15px;
+  width:562px;
+  height:354px;
+  max-width: 1124px;
+  max-height: 708px;
+  border-style: solid;
+  border-color: red;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.warning-cover{
+  visibility: hidden;
+  position: absolute;
+  width:100%;
+  height: 100%;
+  background: rgba(213, 213, 213, 0.9);
+  z-index: 9999;
+}
+
+.warning-msg {
+  font-size:3vh;
+  width:80%;
+}
+
+.tips, .training-tips, .section-tips {
+  font-size: 22px;
+}
+
+.training-tips {
+  color: blue;
+}
+
+.controller-panel, .training-msg{
+  bottom: 0px;
+  position: absolute;
+}
+
+.try-again-btn {
+  visibility: hidden;
+}
+
+.img-progress {
+  color: #000000;
+}
+
+.instr-image-cover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* right: 10%; */
+  left: 8%;
+}
+
+.instr-image-cover:not(.instr-active) {
+  visibility: hidden;
+}
+  
+.instr-image-frame {
+  position: relative;
+}
+
+.instr-image {
+  position: relative;
+  margin: auto;
+}
+
+.image-type {
+  display: none;
+}

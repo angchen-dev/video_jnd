@@ -24,6 +24,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.home, name="home"),
+    path("eyetracking_jnd/", views.etjnd, name="etjnd"),
     path("scheduler", views.scheduler, name="scheduler"),
     url(r'^static/(?P<path>.*)$', static.serve,{'document_root': settings.STATIC_ROOT}, name='static'),
 ]
