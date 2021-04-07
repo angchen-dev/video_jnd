@@ -83,6 +83,7 @@ class EtJndHit(models.Model):
     image_url = models.TextField(max_length=4096, default="")
     image_gts = models.TextField(max_length=4096, default="")
     test_gt = models.TextField(max_length=4096, default="")
+    count = models.IntegerField(default=0, editable=False)
     def __str__(self):
         return self.name
 

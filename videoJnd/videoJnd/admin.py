@@ -188,10 +188,10 @@ class RatingHistory(admin.ModelAdmin):
         return False
 
 
-
+# ----------------------------------------------------
 @admin.register(EtJndHit)
 class EtJndHit(admin.ModelAdmin):
-    list_display = ("name", "huid", "image_url", "image_gts", "test_gt")
+    list_display = ("name", "huid", "count")
 
 @admin.register(EtJndResult)
 class EtJndResult(admin.ModelAdmin):

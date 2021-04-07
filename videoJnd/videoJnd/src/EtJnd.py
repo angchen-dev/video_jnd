@@ -59,6 +59,9 @@ def record_result(recv_data:dict) -> dict:
             cur_p.left_hits = {"hits":left_hits}
         cur_p.save()
 
+        cur_hit_obj = EtJndHit.objects.filter(huid=recv_data["hit_id"])[0]
+        cur_hit_obj.count = cur_hit_obj.count + 1
+        cur_hit_obj.save()
         
         return {"status":"successful"}
     except Exception as e:
